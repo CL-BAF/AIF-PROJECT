@@ -1,90 +1,25 @@
-# AIF Reflection Sheet (filled)
+# Reflection Sheet
 
-*(Portfolio item — the teacher's AT1 & AT2 Reflection Sheet, completed 27 August 2026.
-Being specific on purpose: each answer names actual evidence, not general statements.)*
+## What evidence best shows my progress?
 
-| | |
-|---|---|
-| **Name** | CL |
-| **Date** | 27 August 2026 |
-| **My Learning Goal** | To design, build and safely operate Kobald — a governed autonomous AI system for research and authorised security work — and learn how trustworthiness is engineered into a system that can take real actions ("autonomous in thought, cautious in action") |
+The strongest evidence is not a feature list. It is the sequence where a constraint or fault changed what I did next: the 13 July runtime boundary made human approval a design rule; the live `build_context` failure led to a fix and test path on 26 July; and the VPN/private-network compatibility test showed that security decisions must be checked in the real setup. The dated Git record makes these decisions traceable.
 
-## AT1: Portfolio
+## Which strategies were effective, and why?
 
-### 1. What I have done so far *(E1, E2, E3, PA1)*
+The most effective strategies were adversarial audit sessions and live smoke testing. They were effective because they could contradict my belief that the project worked. Conventional automated tests were still valuable, but a real run exposed a gap that tests had not. I now use multiple checks because they fail differently.
 
-Built and deployed the system end to end: ~50,000 lines of Python across ~100 modules with
-~2,100 tests (122 test files), running live on a second machine over an encrypted private
-network since late July. Evidence by criterion — **E1:** the idea evolved from "a helpful AI
-assistant" to a governed agent with a default-deny approval engine, after exploring what could
-go wrong; **E2:** eight strategies tracked in `strategy-tracking.md` (seven rated; class speed-dating not yet trialled);
-**E3:** five perspective types mapped (`feedback-and-perspectives.md`); **PA1:** feedback from
-audits, live failures and the assessment handouts — each with an action and a "what changed".
+## Which perspectives mattered?
 
-### 2. What I might be missing *(E3, PA1)*
+Technical documentation and security sources shaped what the system should do. Donor, funding and audience perspectives shaped what I could realistically build and explain. I synthesised them by changing the project from a “best hardware” plan to a staged, governed-system plan. Neither group of perspectives was enough by itself.
 
-**Human perspectives.** Every reviewer, document and test in my portfolio so far is either
-mine, machine-generated, or impersonal documentation. No independent human has examined the
-security claims. The critical audit finding (a window where an approved action could fire
-twice) is exactly the kind of thing I should not close alone.
+## What feedback did I receive, and what did I do with it?
 
-### 3. What I'm unsure about *(E1)*
+The clearest direct feedback was on my Rotary presentation: make the slides easier to read, explain AI and its risks in everyday language, use a familiar hook, and have a demo backup. I revised the communication approach before presenting. I also treated system failures as feedback: I fixed the `build_context` problem instead of presenting the passing tests as proof that nothing was wrong.
 
-How much portfolio evidence is "enough" per criterion, and where the line sits between a
-*perspective* (someone's view I synthesise) and *feedback* (a response to my work) — my
-adversarial audits are arguably both. I have asked my teacher to check my read of this in
-Progress Check One.
+## What would I change next time?
 
-### 4. What I need to STOP doing *(E2)*
+I would seek an external technical perspective earlier. I contacted people early for equipment and community support, but I have not yet captured a specialist response about Kobald’s approval and audit design. Starting that conversation earlier would give me more time to apply the advice, test the result and reflect on it before final submission.
 
-Treating the code as the output and the portfolio as an afterthought. The handout is explicit:
-the process is the assessment. I have also been leaving finished work uncommitted (112 paths
-as of this week) — that stops now, in slices, starting this week.
+## Next action
 
-### 5. How I am progressing my learning *(E1, E2)*
-
-Steadily toward the goal, with evidence: the system's core claim has been demonstrated live —
-an agent researched real questions while every state-changing action paused for my approval,
-and a plain-language chat returns a governed answer in under a minute. Progress is measurable
-in dated commits and passing tests, not vibes.
-
-## AT2: Progress Checks
-
-### 1. What I have done so far *(PA2, PA3, A2)*
-
-Progress Check One drafted to the section word budgets (PA2 146 / PA3 344 / A2 131),
-naming three sources/strategies and judging each on currency/reliability, relevance and
-purpose per the PA3 advice.
-
-### 2. What I might be missing *(PA3, A2)*
-
-Genuinely new evidence for Check Two: the strongest recent material (the live feed ingestion,
-the conversational-chat fix, Work Mode) is still uncommitted, so it is not yet properly
-documented as portfolio evidence.
-
-### 3. What I'm unsure about *(A2)*
-
-Whether "appraising" needs a measured counterfactual ("this strategy moved my learning by X")
-or a argued judgement with criteria. I have drafted for the latter, using the rubric's A-band
-verbs, and will confirm with the teacher's response to Check One.
-
-### 4. What I need to STOP doing *(PA2)*
-
-Recounting actions ("I built X") without linking them to what I learned or decided — the
-Reflection Sheet warns this directly, and my earlier drafts drifted that way.
-
-### 5. How I am progressing my learning *(PA2, PA3, A2)*
-
-My definition of "done" has visibly changed between drafts: from "the feature works" to
-"it fails loudly, its guarantees are pinned by tests, and its residual gaps are documented
-honestly" — the codebase now publicly documents its one known rollback blind spot rather than
-hiding it. That shift is the clearest single piece of metacognitive progress I can point to.
-
-## Turning this into action
-
-1. **This week:** send the expert-contact emails drafted in `expert-outreach.md`; follow up
-   after one week if silent.
-2. **This week:** commit the uncommitted work in slices, each with a passing test run, so
-   Check Two's evidence is properly dated.
-3. **Before Check Two:** incorporate the teacher's Check One feedback as a new entry in
-   `feedback-and-perspectives.md` — with the action and the "what changed" already planned.
+Send a short, targeted request for technical feedback; capture a current safe test and approval-flow example; verify the donated hardware; then update the evidence register with the response and my decision.

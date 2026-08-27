@@ -1,23 +1,32 @@
-# Strategy Tracking
+# Strategy Tracking: Test, Judge, Adapt
 
-*(Portfolio item — the teacher's Strategy Tracking table, filled from the real project log.
-Supports E2; evidence base for PA2/A2 in both Progress Checks.)*
+I am using this table as a record of what actually moved my learning forward. A rating is not a mark for effort; it is my judgement of the evidence each strategy produced.
 
-| Strategy used + brief description | Why I chose this strategy | Rating of effectiveness (1-5) | Evidence of effectiveness | Where does this lead me? Where to next? |
+| Strategy | Why I chose it | Evidence of impact | My judgement | Adaptation / next step |
 |---|---|---|---|---|
-| **AIF timetable** — placed my to-do list on a calendar with due dates (see `learning-goal-and-plan.md`) | Allowed me to visualise what I need to do and when | 4 | Milestones landed in date order (07-08 foundation → 07-31 policy layer → 08-03 multi-agent spine); the two busiest days were batching of pre-planned small steps, not cramming | Keep the deadline table updated weekly; add the PC2 date once the teacher confirms it |
-| **Numbered-phase plan with small dated commits** — every change lands as its own commit ("Phase 3 Step 5: …"), so progress is measurable | A bad week cannot erase a good one; each commit is a rollback point | 5 | 106+ dated commits since 2026-07-08; each phase closed with a fix commit; I can point my teacher at any exact date | Continue for the OSINT subsystem; commit the current untracked work in slices |
-| **Adversarial audit loop** — at the end of each phase, reviewer sessions with a single mandate: *break it* | I am the worst reviewer of my own code; a hostile reviewer finds what I rationalise | 5 | Every phase since late July closed with a "confirmed findings" fix commit; my last full audit produced 1 critical, 6 high, 16 medium, 21 low findings | Commission the same treatment from a *human* expert — AI reviewers may share my blind spots |
-| **Test-pinning invariants** — every security guarantee is written as a test (~2,100 tests, 122 files) | Documentation can drift; a test that fails loudly cannot | 5 | Guarantees like "the supervisor can never approve" are pinned by tests AND a server-side refusal — three independent layers | Extend to the untracked OSINT tests; keep the "specs never silently fail" suite growing |
-| **Live smoke testing on the real deployed machine** — after every change, exercise the running system, not just the tests | A test suite is a model of reality; reality has the final vote | 5 | Caught a bug every green test missed: a fake test connection accepted a keyword the real Python API rejects — it surfaced only on the first live feed refresh | Re-run the full live smoke pass after the next deploy; record results in the portfolio |
-| **Secondary research: authoritative security feeds** (CISA KEV, MITRE ATT&CK, NVD, GHSA) ingested into the project's Knowledge Vault | Real data beats invented examples; also *tests* my system with real-world input | 4 | Vault grew 12 → 323 records on 15 Aug; ingestion caught two real design bugs (claim-length caps, dotted ATT&CK identifiers) | Add source-ageing so records refresh automatically; list every feed in `sources.md` |
-| **Secondary research: official documentation** (Python stdlib docs, Starlette, systemd, Tailscale) before every design decision | Primary sources for how the platform actually behaves | 4 | The stdlib-only design decision came from reading what the library already provides; systemd hardening flags came straight from the manual | Compare a doc-only understanding against a YouTube walkthrough of the same topic (metacognition exercise from class) |
-| **Speed-dating perspectives with classmates** (class exercise, upcoming) | A non-technical reader will catch where my explanations assume too much | — not yet trialled | — | Trial it; record what questions classmates ask — those are my explanation gaps |
+| Small, dated Git commits | I needed a way to make progress visible and recoverable | Verified commits run from 8 July through 27 July, with test counts recorded at key points | **4/5.** It made the development path easier to explain and reduced the risk of losing a whole idea | Commit the later working-copy changes in smaller slices with a passing-test note |
+| Default-deny approval design | I did not want “autonomous” to mean uncontrolled | 13 July runtime-boundary record and later oversight hardening | **5/5.** This turned a value into a concrete testable rule | Capture one harmless approval flow for the final portfolio |
+| Adversarial audit / try-to-break-it sessions | I needed a strategy that could prove my confidence wrong | Security/data-integrity fixes, concurrency hardening, and later regression work | **5/5.** It finds uncomfortable but useful information | Ask an external person to challenge one audit finding, not only review my explanation |
+| Unit tests plus regression tests | Repeated failures should not silently return | Test counts rose from 98 to 538 in verified commits; the live `build_context` fault was then fixed | **4/5.** Useful, but only when tests represent reality | Keep one live smoke test beside mocks; save a current result rather than quoting old totals |
+| Live smoke testing | Passing tests can share the same mistaken assumption | A real task exposed the `build_context` failure despite automated testing | **5/5.** This corrected false confidence | Run a safe, redacted test after major changes and add its evidence |
+| Secondary research and official documentation | I needed informed design choices without inventing security rules | Python/platform documentation and CISA/MITRE-style source use informed boundaries and parsing | **4/5.** Strong for foundations, weaker for seeing how my own implementation behaves | Compare documentation with a real run and record disagreements |
+| Community outreach and resource planning | Hardware, money and local advice were genuine constraints | Donor, council, regional-development and Rotary correspondence | **4/5.** It made the resource plan more realistic and improved my communication | Verify the donated hardware; record outcomes of the two new enquiries |
+| Audience feedback before a presentation | A technically correct explanation can still fail if people cannot follow it | Zoe Dalton's feedback led to clearer slides, plain-language explanation, familiar examples and a demo backup | **4/5.** It improved accessibility, not just appearance | Ask a listener what they understood after the presentation, then revise using that evidence |
 
-## What the ratings tell me (metacognition)
+## Two strategy changes that matter most
 
-My two 5-rated strategies (adversarial audit, test-pinning) share one property: **they assume
-I am wrong and set out to prove it.** My 4-rated strategies (planning, secondary research) are
-necessary but passive — they inform, they don't falsify. The gap in my strategy set is
-*human* perspective: everything so far is AI reviewers, official documents, and my own tests,
-which all inherit my blind spots. That is exactly where the expert-contact strategy fits.
+### 1. From “more testing” to “testing that can disagree with me”
+
+At first, a larger test number felt like proof of quality. A live run showed the weakness in that thinking: a fake connection in a test accepted something that the real interface would reject. The test was passing because it matched my incorrect assumption. I changed my strategy by treating a passing suite as evidence to question, then adding a regression expectation that mocks must mirror the real interface. The implication is that I need different kinds of checking — code tests, live tests, audits and human review — because one method cannot expose every blind spot.
+
+### 2. From “get the ideal hardware” to “build a staged, accountable system”
+
+The first plan depended too much on a high-end GPU and cloud capacity. Funding and availability feedback made that unrealistic. I responded by separating the goal from the most expensive equipment: the goal is to learn governed AI design, so I can develop and test many of the important controls on the donated computers and local network first. This made the project more achievable, but it also created a new responsibility: I must be precise about what has actually been tested on the available hardware.
+
+## Weekly check-in prompts
+
+- What did I do that produced evidence, not just activity?
+- Which strategy could prove me wrong next week?
+- What decision am I delaying because I want more certainty?
+- What resource, safety or privacy risk has changed?
+- What needs a capture before I can use it in assessed writing?

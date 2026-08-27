@@ -1,31 +1,25 @@
-# Progress Check Two
+# Progress Check Two — Working Draft
 
-*(AT2 Progress Checks, Part Two. Word budgets per the assessment sheet: PA2 400, PA3 100, A2 250. Covers the period since Progress Check One; every claim is anchored to portfolio evidence — the Strategy Tracking table, the Feedback and Perspectives record, and the dated commit log.)*
+*This is a working draft for the later AT2 check, not a claim that future feedback or evidence already exists. Update the bracketed evidence before submission so it is genuinely new evidence from after Progress Check One.*
 
 ## PA2 — Managing time and resources
 
-I have been reflecting on strategy effectiveness the way my project itself works: by assuming each strategy is wrong and demanding evidence that it isn't. My Strategy Tracking table rates every strategy out of five with recorded evidence, and reading it honestly revealed a pattern I would have missed by feel: my two 5-rated strategies — the adversarial audit loop and test-pinning invariants — are built to *falsify* my belief that the system is correct, while my 4-rated strategies — calendar planning and secondary research — are passive: they inform decisions without ever testing them. The audit loop has closed every phase since late July with a fix commit, and my last full audit produced 1 critical, 6 high, 16 medium and 21 low findings. That distinction now governs my time: falsifying strategies get scheduled first, because passive ones can absorb unlimited hours without proving anything.
+Since Progress Check One, I have used the evidence register as a resource-management tool rather than just a list of links. It makes me separate verified evidence from local working-copy notes and from things I still need to capture. This matters because the assessment advice says live links are not evidence by themselves. My priority is therefore not adding more features; it is closing the gaps that stop me from making an honest judgement about Kobald.
 
-An unexpected opportunity came from the security feeds themselves. I had planned live ingestion of the CISA KEV and MITRE ATT&CK catalogues to give my agent real data; it proved equally valuable for testing my own code with messy reality. The vault grew from 12 to 323 records across the static seed and the live feeds, and the live run surfaced two design defects no unit test had imagined. I responded with compounding decisions: fix the parsers rather than loosen the validation limits, keep every feed on an allowlisted, IP-pinned fetcher, and let records enter only as *unreviewed*. A second opportunity was reframing my constraint — no write access to the live machine — into the two-person deploy rule, with timestamped backups before every copy, which now also protects me from my own deploy mistakes.
+The first gap is a current, safe test capture. Earlier commits show test milestones, but they do not prove the current state. I will run the relevant checks, redact private paths or credentials, and save the output with a date. The second is an approval-flow capture using a harmless task. That will test whether the principle “autonomous in thought, cautious in action” is visible in a real workflow. The third is the donated-hardware inventory because the descriptions of the second PC differ. I will verify it from the device instead of guessing. Finally, I will send the targeted external-feedback request and follow up once after a week.
 
-The sharpest challenge came on that first live run: all of my roughly 2,100 tests passed, yet the run failed immediately, because a fake connection in one test accepted a keyword the real Python API rejects. My tests had been agreeing with my mistake. I addressed it with a regression test asserting that mocks mirror the real API signature, and a portfolio rule: a mock that accepts what the real interface wouldn't is a bug in the test. A second risk was two weeks of finished work — including a whole OSINT subsystem — uncommitted on one machine; I scheduled slice-by-slice commits with passing tests. A third was data leaving my machines: cloud models stayed optional behind two independent consent gates, with local models the default.
+These tasks are scheduled before the Term 3 Week 8 draft and Week 10 due date because they are dependencies, not optional polish. The risk is spending all my time expanding Kobald while the portfolio contains only old claims. The opportunity is that each capture can reveal a weakness: a test may fail, the approval path may be confusing, or an expert may identify a control I had missed. If that happens, I will record the decision and adjust the strategy rather than hide the result.
 
-*(399 words)*
+*[Update after new evidence is captured: what was completed, date, result, and next action.]*
 
 ## PA3 — Making judgements and decisions
 
-My key decisions were judgements about restraint, each evidence-led. When the audit found a window where an approved action could fire twice, I ranked it critical above every feature, because exploitability matters more than embarrassment. When ingestion broke on real data, I judged the validation limits worth keeping and fixed the parsers instead — loosening a guard to pass a test is how a system becomes unsafe. And finding my supervisor daemon unable to approve actions, I kept it that way deliberately, enforcing the restriction in three independent layers.
+My next decision is to prioritise independent feedback over another feature. I judged this as more valuable because I already have technical evidence created from inside the project, while the largest remaining uncertainty is whether someone outside it sees a safety gap I cannot. If the feedback is specific and relevant, I will test one recommendation. If it is too broad or does not fit the learning goal, I will explain why I adapted or declined it.
 
-*(88 words)*
+## A2 — Appraising impact
 
-## A2 — Appraising the impact of strategies perspectives and/or feedback to the learning
+The evidence-register strategy has improved the project because it stops me from confusing activity with proof. It has made the portfolio more honest: the parser fixes and larger local test claims are described as working-copy evidence until a capture exists, while dated commits and correspondence are clearly verified. This changes how I learn. Rather than trying to make the project sound complete, I can identify the next strongest test of my assumptions.
 
-The most valuable feedback of this period came from the collision between my sources, because no single source sufficed alone. The authoritative feeds told me what is true in the world; the adversarial audits told me where my code diverged from what I believed; the live run told me where even my audits and tests were wrong together. Each caught what the others could not: documents describe happy paths, audits reason from my code's assumptions, and my tests encode them verbatim. Only running all three exposed the FakeConn defect — exactly where official documentation contradicted my test's fake.
+The limitation is that this strategy only organises evidence; it does not create new perspectives. Its impact will be strongest when paired with external feedback and a real safe workflow capture. The external reviewer may confirm that the approval/audit approach is sensible, or they may show that it is incomplete. Either outcome will progress the learning goal if I respond with a justified decision and evidence of what changed.
 
-What made these sources valuable was how they connected. The feeds filled the vault; the vault's ingestion failures became audit findings; the findings became fixes; the fixes were pinned as tests so they cannot silently regress. That chain — research producing failures, failures producing feedback, feedback pinned as tests — turned one bad afternoon into three permanent improvements.
-
-What I still lack is a perspective outside that loop: a human who did not build the system judging whether it is safe. My expert outreach begins this week, and the critical audit finding stays open until someone independent has examined it — the most valuable feedback I can still receive cannot be generated from inside my own project.
-
-*(211 words)*
-
-**Total: 698 words** — within the Part Two budgets (PA2 400 / PA3 100 / A2 250) and inside the 1500-word combined cap when added to Progress Check One (621).
+*[Update after new evidence is captured: appraise the actual impact, not the planned impact.]*

@@ -1,47 +1,16 @@
-# Sources List
+# Sources and How I Used Them
 
-*(Portfolio item — per the teacher's advice these are recorded as links, not formal citations.
-Each entry notes what I gained and how it influenced the next step.)*
+This is a source-use record, not just a bibliography. The assessment advice asks for evidence of what a source contributed and how it shaped the next step.
 
-## Primary project / output evidence
+| Source / perspective | Why it was relevant | What I took from it | What I did next | Evidence status |
+|---|---|---|---|---|
+| Kobald commit history and public showcase | Primary development record | Dated changes, stated limitations and early test milestones | Used the history to reconstruct decisions rather than relying on memory | **Verified capture** |
+| Official Python/platform documentation | Needed to know actual interface behaviour and deployment constraints | Documentation is authoritative for intended APIs but does not test my implementation | Compared it against live/mocked behaviour; added the need for real-interface checks | **Verified capture** as a source-use record |
+| CISA KEV and MITRE ATT&CK-style security sources | Relevant examples of structured, current security information | Source data needs provenance and review before it is trusted in my project | Designed for allowlisted ingestion and human review; parser-fix capture still needed | Mixed: source choice is **verified**; current project result is **reported working-copy evidence** |
+| School assessment advice, rubric and progress-check slides | Defines what counts as AIF evidence | Process, decisions, perspectives and feedback are assessed; output alone is not | Reorganised this repository around evidence status and reflection | **Verified capture** — supplied documents |
+| Council, business, regional-development and community correspondence | Real constraints on funding, hardware and eligibility | A strong idea still needs a realistic budget, clear project brief and suitable funding path | Made a staged resource plan and continued targeted outreach | **Verified capture** — email history |
+| Zoe Dalton’s presentation feedback | Audience needs and communication quality | Technical detail needed a clearer story, better readability and a contingency | Revised presentation language and demo plan | **Verified capture** — email history |
 
-| # | Source | What I gained → how it influenced my next step |
-|---|--------|------------------------------------------------|
-| 1 | `https://github.com/CL-BAF/Kobald` — my project repository (106+ dated commits, 2026-07-08 → 2026-08-03, plus current work) | The commit log *is* my process evidence → every Progress Check claim is anchored to a dated commit |
-| 2 | `https://github.com/CL-BAF/AIF-PROJECT` — this portfolio repository | Portfolio reorganised around the criteria codes (E1–E3, PA1–PA3, A2) |
+## Source evaluation
 
-## Authoritative security data (ingested live into the Knowledge Vault, 2026-08-15; with the static seed and after dedup and claim caps the vault grew 12 → 323 records)
-
-| # | Source | What I gained → how it influenced my next step |
-|---|--------|------------------------------------------------|
-| 3 | CISA Known Exploited Vulnerabilities (KEV) catalogue — `https://www.cisa.gov/known-exploited-vulnerabilities-catalogue` | 50 real, current exploitation records → proved the ingestion pipeline works on messy real-world data (claim-length caps had to be fixed in the parser) |
-| 4 | MITRE ATT&CK Enterprise knowledge base — `https://attack.mitre.org/` (STIX bundle) | 81 tactic/technique records including sub-techniques → exposed the dotted-identifier bug (T1564.008) and taught me to read a data schema before ingesting it |
-| 5 | NVD CVE feed — `https://services.nvd.nist.gov/` | 50 vulnerability records → confirmed currency/reliability judgment: records enter as *unreviewed*, never auto-trusted |
-| 6 | GitHub Security Advisories (GHSA) — `https://api.github.com/` | 50 advisories → completed the four-feed test of the fetcher's SSRF/DNS-rebinding protections |
-
-## Technical documentation (primary sources for design decisions)
-
-| # | Source | What I gained → how it influenced my next step |
-|---|--------|------------------------------------------------|
-| 7 | Python standard library documentation (3.13) — `https://docs.python.org/3/` | What the stdlib already provides (sockets, HMAC, urllib, unittest) → justified the stdlib-only core design; where docs describe happy paths I cross-checked the source |
-| 8 | Starlette documentation — `https://www.starlette.io/` | Route/middleware model for the HTTP control plane → 97 explicitly declared routes instead of decorator magic, so the surface is auditable |
-| 9 | systemd manual pages — `https://www.freedesktop.org/software/systemd/man/` | Service hardening flags (NoNewPrivileges, ProtectSystem=strict, RestrictAddressFamilies) → both live services hardened directly from the manual |
-| 10 | Tailscale documentation — `https://tailscale.com/kb` | Private encrypted networking between my machines → replaced any public exposure of the control plane; the only unauthenticated route is a health check |
-| 11 | Mullvad VPN — `https://mullvad.net/help` | Kill-switch networking for the isolated worker VM → state-changing actions execute only inside a disposable VM with no direct internet identity |
-| 12 | Ollama documentation — `https://ollama.com` / `https://github.com/ollama/ollama` | Local model hosting → cloud models are now consent-gated (two independent gates) after reading how cloud calls transmit data |
-
-## Assessment and course documents (teacher-provided)
-
-| # | Source | What I gained → how it influenced my next step |
-|---|--------|------------------------------------------------|
-| 13 | Simplified Performance Standards Rubric | The A-band verbs (*discerning*, *synthesises*, *related impact*) → I now judge sources on criteria instead of naming them |
-| 14 | AT2 Progress Check Combined sheet (task outline, success criteria, word budgets) | The exact section structure and the "success criteria checklist" → drafted both checks to per-section word budgets |
-| 15 | "AIF STUFF FOR LKOBALD" lesson notes | "The output is not an assessment; it informs the assessment. EVERYTHING goes in the portfolio" → rebuilt the portfolio around the teacher's tables |
-| 16 | Strategy Tracking + Reflection Sheet templates | The structure for my own filled versions in this repo |
-| 17 | Selecting and Using Perspectives handout | The distinction between perspectives (before decisions) and feedback (after) → restructured `feedback-and-perspectives.md` around it |
-
-## Community / social
-
-| # | Source | What I gained → how it influenced my next step |
-|---|--------|------------------------------------------------|
-| 18 | GitHub project pages and issue trackers for the open-source tools I depend on (Starlette, uvicorn, Ollama) | Real-world failure modes and upgrade notes → informed my decision to pin versions and keep the core importable without any of them |
+I judged sources by authority, currency, relevance and purpose, but I also considered their limits. Official documentation is reliable for what an interface is designed to do, not proof that my code uses it safely. A live security feed can be current and authoritative, but it can still expose parser errors in my own system. Community correspondence is not technical evidence, but it is strong evidence about local resources, eligibility and the clarity of my communication. Using the sources together gave me more useful decisions than treating any one source as final proof.

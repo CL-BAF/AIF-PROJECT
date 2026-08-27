@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render every portfolio/progress-check markdown file to .docx (stdlib only).
+"""Render the AIF portfolio Markdown to one submission-ready .docx (stdlib only).
 
 No pandoc or python-docx on this host, so this hand-writes the OOXML parts.
 Supports the subset of markdown used in this repo: #/##/### headings, paragraphs,
@@ -12,8 +12,13 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 def esc(s):
     return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
+def plain(text):
+    """Keep link labels in Word; URLs remain available in the Markdown record."""
+    return re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', text)
+
 def runs(text):
     """Convert **bold** / *italic* markdown to w:r runs."""
+    text = plain(text)
     out, pos = [], 0
     for m in re.finditer(r'\*\*(.+?)\*\*|\*(.+?)\*', text):
         if m.start() > pos:
@@ -35,12 +40,12 @@ def para(text, style=None, ind=None):
     return f'<w:p>{ppr}{runs(text)}</w:p>'
 
 def cell(text, bold=False):
-    rpr = '<w:rPr><w:b/></w:rPr>' if bold else ''
+    rendered = runs(f'**{plain(text)}**') if bold else runs(text)
     return ('<w:tc><w:tcPr><w:tcMar>'
             '<w:top w:w="60" w:type="dxa"/><w:left w:w="100" w:type="dxa"/>'
             '<w:bottom w:w="60" w:type="dxa"/><w:right w:w="100" w:type="dxa"/>'
             '</w:tcMar></w:tcPr>'
-            f'<w:p><w:r>{rpr}<w:t xml:space="preserve">{esc(text)}</w:t></w:r></w:p></w:tc>')
+            f'<w:p>{rendered}</w:p></w:tc>')
 
 def table(rows):
     borders = ('<w:tblBorders>'
@@ -185,27 +190,31 @@ def strip_meta(md_text):
     return '\n'.join(kept)
 
 def main():
-    targets = []
-    for sub in ('portfolio', 'progress-checks'):
-        for md in sorted(glob.glob(os.path.join(ROOT, sub, '*.md'))):
-            targets.append((md, md[:-3] + '.docx'))
-    for md, out in targets:
-        write_docx(md, out)
-
-    # One consolidated document (lesson advice: "put it all together"):
-    # both progress checks first, then the full portfolio.
-    order = ([os.path.join(ROOT, 'progress-checks', 'progress-check-one.md'),
-              os.path.join(ROOT, 'progress-checks', 'progress-check-two.md')]
-             + sorted(glob.glob(os.path.join(ROOT, 'portfolio', '*.md'))))
-    combined = []
-    for i, md in enumerate(order):
+    # AT1 portfolio only. AT2 progress checks remain separate Markdown drafts so
+    # the portfolio appendix cannot be mistaken for part of AT2's word count.
+    order = [
+        'portfolio.md',
+        'learning-goal-and-plan.md',
+        'strategy-tracking.md',
+        'feedback-and-perspectives.md',
+        'reflection-sheet.md',
+        'sources.md',
+        'expert-outreach.md',
+        'evidence-extracts.md',
+    ]
+    combined = ['# Kobald — AIF Portfolio\n',
+                'SACE Stage 2 Activating Identities and Futures\n',
+                'Evidence record updated 27 August 2026\n---\n']
+    for filename in order:
+        md = os.path.join(ROOT, 'portfolio', filename)
         text = strip_meta(open(md, encoding='utf-8').read())
-        if i > 0:
-            combined.append('\n---\n')
-        if i == 0:
-            combined.append('SACE Stage 2 AIF — AT2 Progress Checks and Portfolio\n')
+        # Keep the document title unique; later top-level Markdown headings are
+        # section headings in the compiled portfolio.
+        if filename != 'portfolio.md':
+            text = re.sub(r'^# ', '## ', text, count=1, flags=re.M)
         combined.append(text)
-    write_docx_text('\n'.join(combined), os.path.join(ROOT, 'AIF-AT2-Progress-Checks-and-Portfolio.docx'))
+        combined.append('\n---\n')
+    write_docx_text('\n'.join(combined), os.path.join(ROOT, 'AIF-Portfolio.docx'))
 
 if __name__ == '__main__':
     main()

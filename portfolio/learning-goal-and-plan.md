@@ -1,56 +1,48 @@
-# Learning Goal, Calendar and Plan
+# Learning Goal, Direction and Plan
 
-*(Portfolio item — supports E1, E2; evidence base for PA2 in both Progress Checks)*
+## Learning goal
 
-## My Learning Goal
+**To design, build and safely operate Kobald (formerly Project JARVIS), a governed AI system for research and authorised security work, and learn how trustworthiness is engineered through approval gates, audit trails, evidence handling, testing and honest documentation.**
 
-To design, build and safely operate **Kobald** (formerly Project JARVIS) — a governed
-autonomous AI system for research and authorised security work — and, through building it,
-learn how trustworthiness is *engineered* into a system that can take real actions:
-approval gates, audit trails, sealed state, honest documentation of limits.
+At the start, I wanted to make a local AI assistant on a GPU server. That was a real interest, but it was too broad and too focused on the final product. I changed the direction after practical limits appeared: TPU quota was denied, an RTX PRO 6000 was unavailable, an L4-based cloud option had a small boot disk, and ongoing cloud cost became a risk. Instead of treating those problems as reasons to stop, I narrowed the learning to a question I could actually investigate: *what makes an AI system safe enough for a person to supervise?*
 
-The design principle I chose, and measure everything against, is:
+That change matters. A bigger model would not prove that the system was trustworthy. I can show learning by designing constraints, testing them, recording faults and responding to feedback.
 
-> **"Autonomous in thought, cautious in action."**
+## What success looks like
 
-The system may research, form provisional conclusions and preserve contradictions on its
-own — but every state-changing action pauses for my explicit approval.
+| Success criterion | Evidence I will use | Why it shows learning, not just output |
+|---|---|---|
+| A research task can be explored without uncontrolled action | Captured task flow showing an approval pause before a state-changing action | Tests the project principle under a real workflow |
+| Important decisions can be traced | Dated commits, change notes and a redacted audit record | Shows why I made a decision and whether it held up |
+| I respond to faults rather than hide them | Before/after bug evidence, regression test and reflection | Demonstrates adaptation of strategy |
+| I use viewpoints beyond my own | Community presentation feedback, documentation, donor/grant responses and external technical feedback still to be sought | Reduces the chance that I only confirm my own assumptions |
+| I manage finite resources responsibly | Budget, hardware record, calendar, backups and deployment rule | Connects time, money, equipment and safety risks |
 
-## My Learning Output
+## Planning timeline
 
-A working, deployed, publicly documented system: the Kobald control plane running on a
-second machine over an encrypted private network, a desktop client for Windows, and an
-open-source repository (`github.com/CL-BAF/Kobald`) so my work can be examined.
+| Date or period | Decision, action or deadline | Evidence status | What it changed |
+|---|---|---|---|
+| 8 July 2026 | Began the Kobald core in Git | **Verified capture** — initial core commit `6ff5dbe` | Turned a broad idea into small, reviewable phases |
+| 13–14 July | Built approval, provenance, ingestion and review-queue iterations | **Verified capture** — commit history records releases from `4edf511` to `c1e7671` | Made safety and evidence handling part of the design rather than an add-on |
+| June–August | Contacted local businesses, councils, community groups and Rotary for equipment, advice and presentation opportunities | **Verified capture** — email record summarised in the evidence register | Replaced the unrealistic assumption that I could buy the whole setup myself |
+| 11 August | Presented the project to Rotary | **Verified capture** — invitation and follow-up records | Forced me to explain the project in ordinary language and identify specific support needs |
+| Term 3, Week 4 | Progress Check Part 1 and Portfolio Checkpoint 2 | Supplied school schedule | A deadline for the first evidence-based reflection |
+| Term 3, Week 8 | Progress Check 2 draft | Supplied school schedule | I need genuinely new evidence, not a rewrite of Check 1 |
+| Term 3, Week 10 | Progress Checks due | Supplied school schedule | Final AT2 submission point |
+| Term 4, Week 1 | Portfolio due | Supplied school schedule | Final AT1 evidence selection and organisation |
+| Term 4, Week 5 | Appraisal due | Supplied school schedule | Use the portfolio to make a final judgement about the learning |
 
-## Calendar — milestones achieved (evidence: dated commits in the Kobald repo)
+## Resource and risk plan
 
-| Date | Milestone | Strategy link |
-|------|-----------|---------------|
-| 2026-07-08 | Project started: initial Kobald core foundation committed | Numbered-phase plan |
-| 2026-07-13 | First security & data-integrity fix pass | Adversarial review |
-| 2026-07-22 → 07-26 | Runtime concurrency hardening, WARDEN tests, scope lock, supervisor daemon | Test-pinning |
-| 2026-07-26 | GUI redesigned to a modern dashboard; v0.12.0 released 07-27 | Secondary research (reference designs) |
-| 2026-07-27 | `kobald chat` CLI + install guides (native Windows, WSL/Kali) | Documentation strategy |
-| 2026-07-29 → 07-31 | `/api/v1` compatibility surface, policy layer (message bus, agent registry, WARDEN suspension) — 16 commits in one day | Small verified steps |
-| 2026-08-01 → 08-03 | Multi-agent departments/specialists + privacy-aware model routing (Phases P-2a → 4), each closed by an adversarial-audit fix commit | Adversarial audit loop |
-| 2026-08-11 → 08-18 (uncommitted work) | Work Mode persistent jobs, conversational chat fixes (Phase 12/13), OSINT collection subsystem, knowledge vault wired to live feeds | Live smoke testing |
-| 2026-08-15 | Knowledge Vault grew 12 → 323 records via live authoritative feeds (CISA KEV, MITRE ATT&CK, NVD, GHSA) | Secondary research, automated |
+| Resource or risk | My response | Evidence that will show whether it worked |
+|---|---|---|
+| Limited hardware and funding | Asked for donated/second-hand equipment, made a staged budget and separated essential items from ideal hardware | Donor email summary, grant budget, equipment verification list |
+| Cloud cost and capacity | Moved away from relying on a large paid cloud GPU; use local/smaller resources where possible | Original cloud notes and revised plan |
+| A bad deployment or uncontrolled action | Default-deny approval design; backup before copy; two-person deployment check where write access is limited | Redacted deploy record and approval-flow capture |
+| False confidence from passing tests | Add live smoke tests and regression tests when a real run exposes a gap | Fault-to-fix records in the evidence register |
+| Only hearing my own perspective | Seek teacher, audience and technical-expert feedback; follow up once after a week | Feedback record, outreach log and response notes |
+| Losing track of work | Use calendar milestones and small dated commits | Commit timeline and weekly review notes |
 
-## Calendar — deadlines I have set (per the teacher's advice: to-do list on a calendar)
+## Next plan revision
 
-| Deadline | Task | Why (acceptance criteria) |
-|----------|------|---------------------------|
-| Fri 28 Aug 2026 | Progress Check One draft submitted | Uses portfolio evidence; 500–750 words; PA2/PA3/A2 all answered |
-| 28 Aug 2026 | Send expert-contact emails (see `expert-outreach.md`) | Handout: contact early, follow up after one week |
-| 28 Aug 2026 | Commit the two weeks of finished-but-uncommitted code | Risk: uncommitted work is unproofed work |
-| Sep 2026 (per teacher) | Progress Check Two | Must show *new* progress since Check One, not repeat evidence |
-| End of term | External security review of the critical concurrency finding | The finding cannot be closed by me alone |
-
-## Risks on the calendar (managed, not just listed)
-
-- **Uncommitted work** — 112 paths with uncommitted changes (78 untracked, 34 modified); a disk failure would erase ~2 weeks
-  of evidence. *Action:* commit in slices, each with a passing test run.
-- **Expert response latency** — the handout warns people deprioritise student requests.
-  *Action:* contact several at once this week; follow up after 7 days.
-- **Word-limit discipline** — both checks are capped (Part 1 ≈700, combined ≤1500).
-  *Action:* drafted to per-section word budgets and counted, not eyeballed.
+My next decision is to capture the evidence that is currently only reported from my working copy: a current test result, a redacted approval-flow screenshot, the exact hardware specification, and a short external technical response. Until those are captured, I will describe them honestly as working-copy evidence rather than use them as proof.
