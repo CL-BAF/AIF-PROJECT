@@ -19,7 +19,7 @@ This repository is the portfolio evidence. It deliberately separates what is ind
 | [Strategy tracking](portfolio/strategy-tracking.md) | Strategies tested, judged and adapted |
 | [Perspectives and feedback](portfolio/feedback-and-perspectives.md) | Different viewpoints, feedback, and my response |
 | [Evidence register](portfolio/evidence-extracts.md) | Dated captures and evidence-status labels |
-| [Progress Check One](progress-checks/progress-check-one.md) | Current AT2 draft — 621 words |
+| [Progress Check One](progress-checks/progress-check-one.md) | Current AT2 draft — approx. 590 words |
 | [Progress Check Two working draft](progress-checks/progress-check-two.md) | Current AT2 working draft — not a final submission claim |
 | [Submission-ready portfolio](AIF-Portfolio.docx) | Word version generated from the portfolio Markdown |
 
